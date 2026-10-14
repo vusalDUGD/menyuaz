@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dönər Evi - Menyu</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Maraqlı və dərin qradiyent fon (mərkəzdə isti işıq effekti ilə) */
+            background: radial-gradient(circle at 50% 0%, #1e2538 0%, #0d0f14 70%);
+            color: #ffffff;
+            padding-bottom: 60px;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(23, 26, 36, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 20px 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid #ff9f43;
+        }
+
+        .brand-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ff9f43;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #b0b5c5;
+            margin-top: 3px;
+            font-weight: 300;
+        }
+
+        .cart-icon-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background-color: #ff9f43;
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 159, 67, 0.4);
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .cart-icon-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .cart-badge {
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 0.8rem;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .controls-section {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 18px 12px 45px;
+            background: #141822;
+            border: 1px solid #23293a;
+            border-radius: 25px;
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: #ff9f43;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #b0b5c5;
+        }
+
+        .category-filters {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .category-filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            background: #141822;
+            color: #b0b5c5;
+            border: 1px solid #23293a;
+            padding: 8px 18px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: #ff9f43;
+            color: #fff;
+            border-color: #ff9f43;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu-item-row {
+            background: rgba(20, 24, 34, 0.85);
+            backdrop-filter: blur(5px);
+            border-radius: 14px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #23293a;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.2s, border-color 0.2s;
+            position: relative;
+        }
+
+        .menu-item-row:hover {
+            transform: translateY(-3px);
+            border-color: #ff9f43;
+        }
+
+        .item-img-container {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .item-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: -6px;
+            left: -6px;
+            background: #ff9f43;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+        }
+
+        .item-info {
+            flex-grow: 1;
+        }
+
+        .item-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .item-ingredients {
+            font-size: 0.82rem;
+            color: #b0b5c5;
+            line-height: 1.3;
+        }
+
+        .item-action {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ff9f43;
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, #ff9f43, #ff5252);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: opacity 0.2s;
+        }
+
+        .add-btn:hover {
+            opacity: 0.9;
+        }
+
+        .flying-img {
+            position: fixed;
+            z-index: 9999;
+            object-fit: cover;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(255, 159, 67, 0.6);
+            transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 360px;
+            height: 100%;
+            background-color: #141822;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.7);
+            z-index: 200;
+            transition: right 0.3s ease;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #23293a;
+        }
+
+        .cart-modal.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #23293a;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .close-cart {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #b0b5c5;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #23293a;
+        }
+
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .cart-item-name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .cart-item-price {
+            color: #ff9f43;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #1c2230;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .qty-btn {
+            background: #ff9f43;
+            color: #fff;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qty-btn:hover {
+            background: #ff5252;
+        }
+
+        .qty-count {
+            font-weight: 600;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .cart-footer {
+            border-top: 1px solid #23293a;
+            padding-top: 15px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .cart-footer-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .clear-all-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .clear-all-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .whatsapp-order-btn {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex: 2;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .whatsapp-order-btn:hover {
+            opacity: 0.9;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 199;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 500px) {
+            .menu-item-row {
+                padding: 10px;
+                gap: 10px;
+            }
+            .item-img {
+                width: 80px;
+                height: 80px;
+            }
+            .item-title {
+                font-size: 1rem;
+            }
+            .item-ingredients {
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Cart Button -->
+    <div class="cart-icon-btn" id="cartBtn" onclick="toggleCart()">
+        <i class="fas fa-shopping-basket"></i>
+        <span>Səbət</span>
+        <span class="cart-badge" id="cartCount">0</span>
+    </div>
+
+    <!-- Header Section -->
+    <header>
+        <div class="brand-title">Dönər Evi</div>
+        <div class="subtitle">Fast Food & Milli Mətbəx</div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Controls: Search & Category Filters -->
+        <div class="controls-section">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" onkeyup="filterMenu()" placeholder="Yemək axtarın (məs: Dönər, Kola, Çay)...">
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="setCategory('all', this)">Hamısı</button>
+                <button class="filter-btn" onclick="setCategory('fastfood', this)">Fast Food</button>
+                <button class="filter-btn" onclick="setCategory('milli', this)">Milli Mətbəx</button>
+                <button class="filter-btn" onclick="setCategory('drink', this)">İçkilər</button>
+            </div>
+        </div>
+
+        <!-- Menu List -->
+        <div class="menu-list" id="menuList">
+
+            <!-- Item 1 -->
+            <div class="menu-item-row" data-category="fastfood" data-name="dönər doner corekde">
+                <div class="item-img-container">
+                    <span class="badge-tag">🔥 Çox Satan</span>
+                    <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=400&q=80" alt="Dönər" class="item-img" id="img-1">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Dönər (Çörəkdə)</div>
+                    <div class="item-ingredients">Ət və ya toyuq əti, xüsusi sous, təzə xiyar, pomidor, göyərti</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">4.50 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Dönər (Çörəkdə)', 4.50, 'img-1')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="menu-item-row" data-category="fastfood" data-name="şaurma saurma lavasda">
+                <div class="item-img-container">
+                    <span class="badge-tag">⭐ Populyar</span>
+                    <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=400&q=80" alt="Şaurma" class="item-img" id="img-2">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Şaurma (Lavaşda)</div>
+                    <div class="item-ingredients">Nazik lavaş, sarımsaqlı sous, kartof fri, turşu xiyar, marinad olunmuş ət</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">5.50 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Şaurma (Lavaşda)', 5.50, 'img-2')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="menu-item-row" data-category="fastfood" data-name="kartoşka fri kartof fri">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#f1c40f; color:#000;">🍟 Xırt-xırt</span>
+                    <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=400&q=80" alt="Kartoşka Fri" class="item-img" id="img-3">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Kartoşka Fri</div>
+                    <div class="item-ingredients">Qızardılmış qızılı kartof dilimləri, xüsusi ədviyyat və ketçup ilə</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">3.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Kartoşka Fri', 3.00, 'img-3')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="menu-item-row" data-category="fastfood" data-name="lahmacun lamacun">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#e67e22;">🔥 Təzə</span>
+                    <img src="https://images.unsplash.com/photo-1594998893017-36147cffc02c?auto=format&fit=crop&w=400&q=80" alt="Lahmacun" class="item-img" id="img-4">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Lahmacun</div>
+                    <div class="item-ingredients">Xırçıltılı xəmir üzərində qiymə, tərəvəzlər, limon və göyərti ilə</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">3.50 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Lahmacun', 3.50, 'img-4')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="menu-item-row" data-category="fastfood" data-name="pide pendirli etli">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#8e44ad;">👑 Xüsusi</span>
+                    <img src="https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=400&q=80" alt="Qarışıq Pide" class="item-img" id="img-5">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Qarışıq Pide</div>
+                    <div class="item-ingredients">İncə xəmir, dana əti, kaşar pendiri, bibər və xüsusi ədviyyatlar</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">7.50 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Qarışıq Pide', 7.50, 'img-5')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="menu-item-row" data-category="milli" data-name="basdırma basdirma kabab">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#d35400;">🍖 Məngəldə</span>
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=400&q=80" alt="Basdırma Kabab" class="item-img" id="img-6">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Basdırma Kabab</div>
+                    <div class="item-ingredients">Soğan və xüsusi otlarla marinad olunmuş dana əti, közlənmiş tərəvəz</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">9.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Basdırma Kabab', 9.00, 'img-6')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 7 -->
+            <div class="menu-item-row" data-category="milli" data-name="dolma yarpaq dolmasi">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#27ae60;">🇦🇿 Milli Ləzzət</span>
+                    <img src="https://images.unsplash.com/photo-1628294895950-9805252327bc?auto=format&fit=crop&w=400&q=80" alt="Yarpaq Dolması" class="item-img" id="img-7">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Yarpaq Dolması</div>
+                    <div class="item-ingredients">Təzə tənək yarpağı, çəkilmiş ət, düyü, nanə, yanında süzmə qatıq</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">6.50 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Yarpaq Dolması', 6.50, 'img-7')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 8 -->
+            <div class="menu-item-row" data-category="milli" data-name="piti milli yemək şəki">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#27ae60;">🍲 Şəki Piti</span>
+                    <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=400&q=80" alt="Piti" class="item-img" id="img-8">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Şəki Piti</div>
+                    <div class="item-ingredients">Xüsusi saxsı qabda qoyun əti, noxud, quyruq, zəfəran və şabalıd</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">8.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Şəki Piti', 8.00, 'img-8')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 9: Çay -->
+            <div class="menu-item-row" data-category="drink" data-name="çay cay armudu stəkan">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#c0392b;">☕ Isti</span>
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80" alt="Qara Çay" class="item-img" id="img-9">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Samovar Çayı (Armudu stəkanda)</div>
+                    <div class="item-ingredients">Ləziz qara çay, yanında limon və şəkər ilə</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">1.50 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Samovar Çayı', 1.50, 'img-9')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 10: Kola -->
+            <div class="menu-item-row" data-category="drink" data-name="cola kola içki">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#e74c3c;">🔴 Sərin</span>
+                    <img src="https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=400&q=80" alt="Coca Cola" class="item-img" id="img-10">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Coca-Cola (330ml)</div>
+                    <div class="item-ingredients">Buzlu şüşə/qutu sərinlədici qazlı içki</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">2.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Coca-Cola (330ml)', 2.00, 'img-10')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 11: Pepsi -->
+            <div class="menu-item-row" data-category="drink" data-name="pepsi içki">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#2980b9;">🔵 Sərin</span>
+                    <img src="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?auto=format&fit=crop&w=400&q=80" alt="Pepsi" class="item-img" id="img-11">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Pepsi (330ml)</div>
+                    <div class="item-ingredients">Fırlanan buzlu şüşə/qutu sərinlədici qazlı içki</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">2.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Pepsi (330ml)', 2.00, 'img-11')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 12: Fanta -->
+            <div class="menu-item-row" data-category="drink" data-name="fanta içki">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#d35400;">🟠 Meyvəli</span>
+                    <img src="https://images.unsplash.com/photo-1624552184280-9e9632bbeee9?auto=format&fit=crop&w=400&q=80" alt="Fanta" class="item-img" id="img-12">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Fanta Port<bos>330ml</div>
+                    <div class="item-ingredients">Portağal ətirli sərinlədici qazlı içki</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">2.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Fanta (330ml)', 2.00, 'img-12')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 13 -->
+            <div class="menu-item-row" data-category="drink" data-name="ayran icgi">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#2980b9;">🧊 Sərinlədici</span>
+                    <img src="https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=400&q=80" alt="Kənd Ayranı" class="item-img" id="img-13">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Kənd Ayranı</div>
+                    <div class="item-ingredients">Təbii qatıq, mineral su, quru nanə və az miqdarda duz</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">2.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Kənd Ayranı', 2.00, 'img-13')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 14 -->
+            <div class="menu-item-row" data-category="drink" data-name="limonad içki">
+                <div class="item-img-container">
+                    <span class="badge-tag" style="background:#2980b9;">🍋 Təbii</span>
+                    <img src="https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&w=400&q=80" alt="Limonad" class="item-img" id="img-14">
+                </div>
+                <div class="item-info">
+                    <div class="item-title">Ev Sayağı Limonad</div>
+                    <div class="item-ingredients">Təzə sıxılmış limon suyu, nanə yarpaqları, şəkər siropu və buz</div>
+                </div>
+                <div class="item-action">
+                    <div class="item-price">3.00 AZN</div>
+                    <button class="add-btn" onclick="addToCart('Ev Sayağı Limonad', 3.00, 'img-14')">
+                        <i class="fas fa-cart-plus"></i> Səbətə
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Side Cart Drawer & Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Sizin Səbətiniz</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <p style="color: #b0b5c5; text-align: center; margin-top: 20px;">Səbətiniz boşdur.</p>
+        </div>
+
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total-row">
+                <span>Ümumi Məbləğ:</span>
+                <span id="totalPrice" style="color: #ff9f43;">0.00 AZN</span>
+            </div>
+            <div class="cart-footer-actions">
+                <button class="clear-all-btn" onclick="clearCart()">
+                    <i class="fas fa-trash-alt"></i> Sil
+                </button>
+                <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-order-btn">
+                    <i class="fab fa-whatsapp"></i> Sifariş et
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = {};
+        let currentCategory = 'all';
+
+        function addToCart(name, price, imgId) {
+            if (cart[name]) {
+                cart[name].qty += 1;
+            } else {
+                cart[name] = { price: price, qty: 1 };
+            }
+
+            updateCartUI();
+            flyToCart(imgId);
+
+            let cartModal = document.getElementById('cartModal');
+            if (!cartModal.classList.contains('open')) {
+                setTimeout(() => { toggleCart(); }, 750);
+            }
+        }
+
+        function changeQty(name, delta) {
+            if (cart[name]) {
+                cart[name].qty += delta;
+                if (cart[name].qty <= 0) {
+                    delete cart[name];
+                }
+            }
+            updateCartUI();
+        }
+
+        function clearCart() {
+            cart = {};
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            let cartItemsDiv = document.getElementById('cartItems');
+            let cartFooter = document.getElementById('cartFooter');
+            let totalPriceSpan = document.getElementById('totalPrice');
+            let cartCountSpan = document.getElementById('cartCount');
+            let whatsappBtn = document.getElementById('whatsappBtn');
+
+            let keys = Object.keys(cart);
+            let totalItems = 0;
+            let totalPrice = 0;
+
+            if (keys.length === 0) {
+                cartItemsDiv.innerHTML = '<p style="color: #b0b5c5; text-align: center; margin-top: 20px;">Səbətiniz boşdur.</p>';
+                cartFooter.style.display = 'none';
+                cartCountSpan.innerText = 0;
+            } else {
+                cartItemsDiv.innerHTML = '';
+                let whatsappMessage = "Salam, Dönər Evi! Yeni sifariş:\n\n";
+
+                keys.forEach(name => {
+                    let item = cart[name];
+                    let itemTotal = item.price * item.qty;
+                    totalItems += item.qty;
+                    totalPrice += itemTotal;
+
+                    whatsappMessage += `- ${name}: ${item.qty} ədəd (${itemTotal.toFixed(2)} AZN)\n`;
+
+                    cartItemsDiv.innerHTML += `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <span class="cart-item-name">${name}</span>
+                                <span class="cart-item-price">${itemTotal.toFixed(2)} AZN</span>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="changeQty('${name}', -1)">-</button>
+                                <span class="qty-count">${item.qty}</span>
+                                <button class="qty-btn" onclick="changeQty('${name}', 1)">+</button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                whatsappMessage += `\n*Ümumi Məbləğ: ${totalPrice.toFixed(2)} AZN*`;
+                
+                let phoneNumber = "994501234567"; 
+                whatsappBtn.href = `https://wa.me/${phoneNumber}?text=` + encodeURIComponent(whatsappMessage);
+
+                cartFooter.style.display = 'flex';
+                totalPriceSpan.innerText = totalPrice.toFixed(2) + ' AZN';
+                cartCountSpan.innerText = totalItems;
+            }
+        }
+
+        function flyToCart(imgId) {
+            let imgElement = document.getElementById(imgId);
+            let cartBtn = document.getElementById('cartBtn');
+
+            if (!imgElement || !cartBtn) return;
+
+            let imgRect = imgElement.getBoundingClientRect();
+            let cartRect = cartBtn.getBoundingClientRect();
+
+            let flyer = document.createElement('img');
+            flyer.src = imgElement.src;
+            flyer.className = 'flying-img';
+            
+            flyer.style.left = imgRect.left + 'px';
+            flyer.style.top = imgRect.top + 'px';
+            flyer.style.width = '60px';
+            flyer.style.height = '60px';
+
+            document.body.appendChild(flyer);
+
+            setTimeout(() => {
+                flyer.style.left = (cartRect.left + cartRect.width / 2 - 15) + 'px';
+                flyer.style.top = (cartRect.top + cartRect.height / 2 - 15) + 'px';
+                flyer.style.width = '25px';
+                flyer.style.height = '25px';
+                flyer.style.opacity = '0.3';
+            }, 30);
+
+            setTimeout(() => { flyer.remove(); }, 800);
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        }
+
+        function filterMenu() {
+            let searchValue = document.getElementById('searchInput').value.toLowerCase().trim();
+            let items = document.querySelectorAll('.menu-item-row');
+
+            items.forEach(item => {
+                let itemName = item.getAttribute('data-name').toLowerCase();
+                let itemCategory = item.getAttribute('data-category');
+
+                let matchesSearch = itemName.includes(searchValue);
+                let matchesCategory = (currentCategory === 'all' || itemCategory === currentCategory);
+
+                if (matchesSearch && matchesCategory) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function setCategory(category, btnElement) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            filterMenu();
+        }
+    </script>
+</body>
+</html>
